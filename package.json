@@ -1,0 +1,20 @@
+{
+  "name": "project_uts_pbp",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/latiffebriankaa/project_UTS_PBP#readme",
+  "bugs": {
+    "url": "https://github.com/latiffebriankaa/project_UTS_PBP/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/latiffebriankaa/project_UTS_PBP.git"
+  },
+  "license": "ISC",
+  "author": "latip,ahmat,ardi,rizki",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
