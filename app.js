@@ -1,20 +1,15 @@
-function kelolaLahanPerkebunan(lahan, weatherData) {
-  /* 
-aturan a : setiap baris lahan harus mengandung >= 50% petak "subur"
-jika tidak, setiap petak "subur" di baris tersebut di ubah menjadi "kering"
-*/
-  for (let i = 0; i < lahan.length; i++) {
+function kelolaLahanPerkebunan(lahan, DataCuaca) {
+  for (let i = 0; i < lahan.length; i++) { // aturan a 
     let baris = lahan[i];
     let totalPetak = baris.length;
     let petakSubur = 0;
 
-    for (let j = 0; j < totalPetak; j++) {
+    for (let j = 0; j < totalPetak; j++) { // hitung petak subur di baris
       if (baris[j] === "subur") {
         petakSubur++;
       }
     }
-
-    if (petakSubur / totalPetak < 0.5) {
+    if (petakSubur / totalPetak < 0.5) { // jika kurang dari 50%, semua petak di tnadai menjadi "kering"
       for (let j = 0; j < totalPetak; j++) {
         if (baris[j] === "subur") {
           baris[j] = "kering";
@@ -23,11 +18,7 @@ jika tidak, setiap petak "subur" di baris tersebut di ubah menjadi "kering"
     }
   }
 
-  /*
-  aturan e :
-  hitung jumlah total petak "subur" setelah penerapan aturan baris
-   */
-  let totalPetakSubur = 0;
+  let totalPetakSubur = 0; // aturan e 
   for (let i = 0; i < lahan.length; i++) {
     for (let j = 0; j < lahan[i].length; j++) {
       if (lahan[i][j] === "subur") {
@@ -36,18 +27,17 @@ jika tidak, setiap petak "subur" di baris tersebut di ubah menjadi "kering"
     }
   }
 
-  // aturan c: Cek kondisi cuaca ideal untuk bercocok tanam
-  const suhuIdeal =
-    weatherData.temperature >= 20 && weatherData.temperature <= 30;
-  const kelembapanIdeal = weatherData.humidity > 50;
-  const anginIdeal = weatherData.windSpeed < 15;
-
+  const suhuIdeal = DataCuaca.temperature >= 20 && DataCuaca.temperature <= 30; // aturan c 
+  const kelembapanIdeal = DataCuaca.humidity > 50;
+  const anginIdeal = DataCuaca.windSpeed < 15;
   const cuacaCocok = suhuIdeal && kelembapanIdeal && anginIdeal;
 
-  // Tentukan jumlah petak yang akan ditanami berdasarkan kondisi cuaca
-  let totalDitanami = cuacaCocok ? totalPetakSubur : 0;
+  let totalDitanami = 0; // menentukan jumlah petak yang akan ditanami sesuai kondisi cuaca
+  if (cuacaCocok) {
+    totalDitanami = totalPetakSubur;
+  }
 
-  console.log(`Total petak subur: ${totalPetakSubur}`);
+  console.log(`Total petak yang subur: ${totalPetakSubur}`);
   console.log(`Total petak yang ditanami: ${totalDitanami}`);
   if (!cuacaCocok) {
     console.log("Cuaca tidak cocok untuk bercocok tanam");
@@ -58,18 +48,16 @@ jika tidak, setiap petak "subur" di baris tersebut di ubah menjadi "kering"
   }
 }
 
-// Contoh penggunaan 
-const lahan = [
+const lahan = [ //contoh lahan 
   ["subur", "kering", "subur", "subur"],
   ["tandus", "kering", "kering", "subur"],
   ["subur", "subur", "subur", "kering"],
   ["kering", "kering", "kering", "kering"],
 ];
-
-const weatherData = {
+const DataCuaca = {//contoh datacuaca
   temperature: 26,
   humidity: 59,
   windSpeed: 13,
 };
 
-kelolaLahanPerkebunan(lahan, weatherData);
+kelolaLahanPerkebunan(lahan, DataCuaca);
